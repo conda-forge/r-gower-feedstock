@@ -1,5 +1,4 @@
 {% set version = '0.1.2' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,13 +9,13 @@ package:
 source:
   fn: gower_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/gower_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/gower/gower_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/gower_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/gower/gower_{{ version }}.tar.gz
   sha256: eb91b2d2784d237c7055abcf3cfa4fc0b2226b855a0c29fc5a4e8eaa689079d5
 
 build:
   merge_build_host: True  # [win]
-  number: 1
+  number: 2
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -24,18 +23,22 @@ build:
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
-
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
 
 test:
   commands:
-    - $R -e "library('gower')"  # [not win]
+    - $R -e "library('gower')"           # [not win]
     - "\"%R%\" -e \"library('gower')\""  # [win]
 
 about:
@@ -50,8 +53,9 @@ about:
 
 extra:
   recipe-maintainers:
-    - cbrueffer
     - johanneskoester
     - bgruening
     - daler
     - jdblischak
+    - cbrueffer
+    - dbast
