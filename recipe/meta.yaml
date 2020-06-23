@@ -1,4 +1,4 @@
-{% set version = '0.2.1' %}
+{% set version = "0.2.2" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/gower_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gower/gower_{{ version }}.tar.gz
-  sha256: af3fbe91cf818c0841b2c0ec4ddf282c182a588031228c8d88f7291b2cdff100
+  sha256: 3f022010199fafe34f6e7431730642a76893e6b4249b84e5a61012cb83483631
 
 build:
-  merge_build_host: True  # [win]
-  number: 2
+  merge_build_host: true  # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -42,11 +42,9 @@ test:
 about:
   home: https://github.com/markvanderloo/gower
   license: GPL-3
-  summary: Compute Gower's distance (or similarity) coefficient between records. Compute  the
-    top-n matches between records. Core algorithms are executed in parallel on systems
-    supporting OpenMP.
+  summary: Compute Gower's distance (or similarity) coefficient between records. Compute  the top-n matches between records. Core algorithms are executed in parallel on systems supporting OpenMP.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
