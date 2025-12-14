@@ -1,4 +1,4 @@
-{% set version = "1.0.1" %}
+{% set version = "1.0.2" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,10 +9,10 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/gower_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gower/gower_{{ version }}.tar.gz
-  sha256: 296a9d8e5efa8c3a8cc6b92cf38880915753afdef30281629af9dc8eae8315fc
+  sha256: 4fd569a50326133bd5629647ad0581340c9b9f8cd7f95572315f206f78185751
 
 build:
-  number: 3
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
